@@ -40,7 +40,7 @@ int main()
         {
             process key = array[i];
             int j = i - 1;
-            while (j >= 0 && array[j].pid > key.pid) {
+            while (j >= 0 && array[j].arrival_time > key.arrival_time) {
                 array[j + 1] = array[j];
                 j = j - 1;
             }
