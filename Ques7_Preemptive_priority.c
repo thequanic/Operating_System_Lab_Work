@@ -68,7 +68,7 @@ int main()
             }
         }
 
-        printf("p%d %d\n",array[min_index].pid,array[min_index].priority);
+        //printf("p%d %d\n",array[min_index].pid,array[min_index].priority);
 
         //if it is fisrt time process is getting cpu set response time
         if(array[min_index].res_time==-1){array[min_index].res_time=time;}
