@@ -34,8 +34,7 @@ int main()
         array[i].res_time=-1;
         array[i].rem_time=array[i].brust_time;
 
-        //sorting processes according to pid using insertion sort 
-        //not imp but preferred
+        //sorting processes 
         if(i>0)
         {
             process key = array[i];
