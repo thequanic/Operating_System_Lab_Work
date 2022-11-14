@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <limits.h>
-
 typedef struct process
 {
     int pid;

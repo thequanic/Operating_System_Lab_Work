@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 typedef struct process
 {
     int pid;
