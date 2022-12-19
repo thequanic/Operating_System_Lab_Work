@@ -26,4 +26,4 @@ int main()
 	shmdt(str);
 
 	return 0;
-}
+}   
