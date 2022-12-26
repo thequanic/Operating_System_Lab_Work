@@ -47,7 +47,7 @@ int main()
     }
 
     int time=array[0].arrival_time; 
-    int idle_time=0;    //system time starting frm zero
+    int idle_time=0;    
     int processes_completed=0;
 
     while(processes_completed<n)

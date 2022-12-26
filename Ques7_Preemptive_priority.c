@@ -48,7 +48,8 @@ int main()
         }
     }
 
-    int time=0;     //system time starting frm zero
+    int time=array[0].arrival_time; 
+    int idle_time=0;   
     int processes_completed=0;
 
     while(processes_completed<n)
@@ -68,10 +69,19 @@ int main()
             }
         }
 
+        
+        if(min_index==-1)
+        {
+            //this is idle condition
+            time++;
+            idle_time++;
+            continue;
+        }
+
         //printf("p%d %d\n",array[min_index].pid,array[min_index].priority);
 
         //if it is fisrt time process is getting cpu set response time
-        if(array[min_index].res_time==-1){array[min_index].res_time=time;}
+        if(array[min_index].res_time==-1){array[min_index].res_time=time-array[min_index].arrival_time;}
 
         time++;
         array[min_index].rem_time-=1;  //decrease rem_time by one for selected process
@@ -93,6 +103,7 @@ int main()
     }
 
     //printing results
+    float cpu_utilization=((time-idle_time)/(float)time)*100;
     float averg_wait_time=0,averg_turn_time=0;
     for(i=0;i<n;i++)
     {
@@ -103,6 +114,9 @@ int main()
     }
 
     printf("\nAverage Waiting Time=%f, Average turn around time=%f",averg_wait_time/n,averg_turn_time/n);
+    printf("\nTotal time taken by cpu to complete all processes: %d",time);
+    printf("\nTotal idle time of cpu to complete all processes: %d",idle_time);
+    printf("\nCPU UTILIZATION: %f percent",cpu_utilization);
 
 
 } 
