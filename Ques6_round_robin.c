@@ -39,7 +39,7 @@ int dequeue(int queue[],int n)
 {
     if(end==-1)
     {
-        printf("\nUnderflow while dequeue\n");
+        //printf("\nUnderflow while dequeue\n");
         return -1 ;
     }
     int temp=queue[front];
@@ -100,16 +100,36 @@ int main()
     array[0].in_q=1;
     int time=array[0].arrival_time; //we have start time with arrival time of first process
     int processes_completed=0;
-
+    int idle_time=0;
 
     while(processes_completed<n)
     {
         
 
         int temp=dequeue(queue,n);  //dequeue one process from queue. Actually the index of that process in array
+
+        if(temp==-1)//idle condition
+        {
+            idle_time++;
+            time++;
+
+            for(i=0;i<n;i++) //checking for processes that are ready to go to queue if not already in it
+            {
+                if(array[i].arrival_time<=time && array[i].res_time==-1 && array[i].in_q==0)
+                {
+                    enqueue(queue,n,i);
+                    array[i].in_q=1;
+
+                }
+            }
+
+            continue;
+
+        }
+
         array[temp].in_q=0;          //set in_q t zero as process is outside queue
         
-        if(array[temp].res_time==-1){array[temp].res_time=time;}
+        if(array[temp].res_time==-1){array[temp].res_time=time-array[temp].arrival_time;}
         array[temp].rem_time-=quant;
 
 
@@ -159,6 +179,7 @@ int main()
 
     //printing results
     float averg_wait_time=0,averg_turn_time=0;
+    float cpu_utilization=((time-idle_time)/(float)time)*100;
     for(i=0;i<n;i++)
     {
         printf("\nPid arrival_time brust_time waiting_time completion_time turnaround_time\n");
@@ -168,6 +189,9 @@ int main()
     }
 
     printf("\nAverage Waiting Time=%f, Average turn around time=%f",averg_wait_time/n,averg_turn_time/n);
+    printf("\nTotal time taken by cpu to complete all processes: %d",time);
+    printf("\nTotal idle time of cpu to complete all processes: %d",idle_time);
+    printf("\nCPU UTILIZATION: %f percent",cpu_utilization);
 
 
 }
