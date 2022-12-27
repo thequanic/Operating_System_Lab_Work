@@ -44,7 +44,7 @@ int main()
         head=arr[min_index];
 
         count+=temp;
-        totalSeekTime=temp*seektime;
+        totalSeekTime+=temp*seektime;
         seekTime[min_index]=totalSeekTime;
 
         visited[min_index]=1;
