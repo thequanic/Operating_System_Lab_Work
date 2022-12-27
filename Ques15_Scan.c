@@ -30,12 +30,6 @@ int main()
     printf("Enter initial position of head:");
     scanf("%d",&head);
 
-    int k=-1;
-    for(int i=0;i<n;i++)
-    {
-        if(arr[i]<=head){k=i;}
-    }
-
     int seektime;
     printf("Enter seek time:");
     scanf("%d",&seektime);
@@ -53,6 +47,11 @@ int main()
     {
         case 1:
         {
+            int k=-1;
+            for(int i=0;i<n;i++)
+            {
+                if(arr[i]<=head){k=i;}
+            }
             for(int i=k;i>=0;i--)
             {
                 int temp=head-arr[i];
@@ -82,6 +81,11 @@ int main()
 
         case 2:
         {
+            int k=-1;
+            for(int i=0;i<n;i++)
+            {
+                if(arr[i]<head){k=i;}
+            }
             for(int i=k+1;i<n;i++)
             {
                 int temp=arr[i]-head;

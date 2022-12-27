@@ -30,6 +30,7 @@ int main()
     printf("Enter initial position of head:");
     scanf("%d",&head);
 
+
     int seektime;
     printf("Enter seek time:");
     scanf("%d",&seektime);
@@ -62,21 +63,32 @@ int main()
                 seekTime[i]=totalSeekTime;
             }
 
+            int temp=head-0;
+            head=0;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
 
-            for(int i=k+1;i<n;i++)
+            temp=199-head;
+            head=199;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
+
+            for(int i=n-1;i>k;i--)
             {
-                int temp=arr[i]-head;
+                int temp=head-arr[i];
                 head=arr[i];
 
                 count+=temp;
                 totalSeekTime+=temp*seektime;
                 seekTime[i]=totalSeekTime;
             }
+           
             break;
         }
 
         case 2:
         {
+
             int k=-1;
             for(int i=0;i<n;i++)
             {
@@ -92,15 +104,26 @@ int main()
                 seekTime[i]=totalSeekTime;
             }
 
-            for(int i=k;i>=0;i--)
+            int temp=199-head; //assuming last disk to be 199
+            head=199;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
+
+            temp=head-0;
+            head=0;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
+
+            for(int i=0;i<=k;i++)
             {
-                int temp=head-arr[i];
+                int temp=arr[i]-head;
                 head=arr[i];
 
                 count+=temp;
                 totalSeekTime+=temp*seektime;
                 seekTime[i]=totalSeekTime;
             }
+            
         }
     }
 
