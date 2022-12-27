@@ -1,5 +1,5 @@
 #include <stdio.h>
-//Assuming direction from right to left
+
 int main()
 {
     int n;
@@ -10,7 +10,6 @@ int main()
     int arr[n];
 
     printf("Enter requests:");
-    int k=-1;
     for(int i=0;i<n;i++)
     {
         scanf("%d",arr+i);
@@ -25,13 +24,17 @@ int main()
             }
             arr[j+1]=key;
         }
-        if(arr[i]<=50){k=i;}
     }
-   
 
     int head; 
     printf("Enter initial position of head:");
     scanf("%d",&head);
+
+    int k=-1;
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]<=head){k=i;}
+    }
 
     int seektime;
     printf("Enter seek time:");
@@ -41,30 +44,72 @@ int main()
     int count=0;
     int totalSeekTime=0;
 
-    for(int i=k;i>=0;i--)
-    {
-        int temp=head-arr[i];
-        head=arr[i];
+    printf("\nEnter 1 if head moves right to left and enter 2 if head moves left to right\n");
+    printf("Enter your choice:");
+    int choice;
+    scanf("%d",&choice);
 
-        count+=temp;
-        seekTime[i]=temp*seektime;
-        totalSeekTime+=seekTime[i];
+    switch(choice)
+    {
+        case 1:
+        {
+            for(int i=k;i>=0;i--)
+            {
+                int temp=head-arr[i];
+                head=arr[i];
+
+                count+=temp;
+                totalSeekTime+=temp*seektime;
+                seekTime[i]=totalSeekTime;
+            }
+
+            int temp=head-0;
+            head=0;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
+
+            for(int i=k+1;i<n;i++)
+            {
+                int temp=arr[i]-head;
+                head=arr[i];
+
+                count+=temp;
+                totalSeekTime+=temp*seektime;
+                seekTime[i]=totalSeekTime;
+            }
+            break;
+        }
+
+        case 2:
+        {
+            for(int i=k+1;i<n;i++)
+            {
+                int temp=arr[i]-head;
+                head=arr[i];
+
+                count+=temp;
+                totalSeekTime+=temp*seektime;
+                seekTime[i]=totalSeekTime;
+            }
+
+            int temp=199-head; //assuming last disk to be 199
+            head=199;
+            count+=temp;
+            totalSeekTime+=temp*seektime;
+
+            for(int i=k;i>=0;i--)
+            {
+                int temp=head-arr[i];
+                head=arr[i];
+
+                count+=temp;
+                totalSeekTime+=temp*seektime;
+                seekTime[i]=totalSeekTime;
+            }
+        }
     }
 
-    int temp=head-0;
-    head=0;
-    count+=temp;
-    totalSeekTime+=temp*seektime;
-
-    for(int i=k+1;i<n;i++)
-    {
-        int temp=arr[i]-head;
-        head=arr[i];
-
-        count+=temp;
-        seekTime[i]=temp*seektime;
-        totalSeekTime+=seekTime[i];
-    }
+    
 
     printf("\nRequest\tSeek_Time");
     for(i=0;i<n;i++)

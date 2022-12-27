@@ -31,8 +31,8 @@ int main()
         head=arr[i];
 
         count+=temp;
-        seekTime[i]=temp*seektime;
-        totalSeekTime+=seekTime[i];
+        totalSeekTime=temp*seektime;
+        seekTime[i]=totalSeekTime;
     }
 
     printf("\nRequest\tSeek_Time");
