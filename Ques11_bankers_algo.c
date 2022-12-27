@@ -35,32 +35,43 @@ int main()
     printf("Enter availability of each resource:");
     for(i=0;i<m;i++){scanf("%d",&avail[i]);}
 
-	int f[n], ans[n], ind = 0;
-	for (k = 0; k < n; k++) {
+	int f[n]; //it stores 1 for processes completed and 0 for non completed processes
+	int ans[n], ind = 0;
+
+	for (k = 0; k < n; k++) 
+	{
 		f[k] = 0;
 	}
-	int need[n][m];
-	for (i = 0; i < n; i++) {
+
+	int need[n][m];                  //calculating need of each process
+	for (i = 0; i < n; i++) 
+	{
 		for (j = 0; j < m; j++)
 			need[i][j] = max[i][j] - alloc[i][j];
 	}
 	int y = 0;
-	for (k = 0; k < n; k++) {
-		for (i = 0; i < n; i++) {
-			if (f[i] == 0) {
 
-				int flag = 0;
-				for (j = 0; j < m; j++) {
-					if (need[i][j] > avail[j]){
-						flag = 1;
+	for (k = 0; k < n; k++)  //for n times we will check if any process is reday to be completed
+	{
+		for (i = 0; i < n; i++) //we will check each process to test if ready to be completed
+		{
+			if (f[i] == 0)     //if process is not completed
+			{
+				int flag = 0;                 //flag is zero if process can be completed and 1 if process can not be completed
+				for (j = 0; j < m; j++) 
+				{
+					if (need[i][j] > avail[j])      //check if avail of each resource fullfills need of process
+					{
+						flag = 1;	//if not set flag to 1 means process cannot comleted for now
 						break;
 					}
 				}
 
-				if (flag == 0) {
-					ans[ind++] = i;
+				if (flag == 0)          //if flag==0
+				{
+					ans[ind++] = i;					//process is completed now, add it to ans array
 					for (y = 0; y < m; y++)
-						avail[y] += alloc[i][y];
+						avail[y] += alloc[i][y];	//add each resource of this process to avail
 					f[i] = 1;
 				}
 			}
@@ -71,20 +82,22 @@ int main()
 	
 	for(int i=0;i<n;i++)
 	{
-	if(f[i]==0)
-	{
-		flag=0;
-		printf("The following system is not safe");
-		break;
-	}
+		if(f[i]==0)	//if all process are not completed
+		{
+			flag=0;
+			printf("The following system is not safe");
+			break;
+		}
 	}
 	
-	if(flag==1)
+	if(flag==1)	//if all processes are completed 
 	{
-	printf("Following is the SAFE Sequence\n");
-	for (i = 0; i < n - 1; i++)
-		printf(" P%d ->", ans[i]);
-	printf(" P%d", ans[n - 1]);
+		printf("Following is the SAFE Sequence\n");
+
+		for (i = 0; i < n - 1; i++)
+			printf(" P%d ->", ans[i]);
+
+		printf(" P%d", ans[n - 1]);
 	}
 	
 
