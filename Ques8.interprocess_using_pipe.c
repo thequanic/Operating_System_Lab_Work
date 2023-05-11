@@ -28,7 +28,7 @@ int main() {
    {
       close(pipefds1[0]); // Close the unwanted pipe1 read side
       close(pipefds2[1]); // Close the unwanted pipe2 write side
-      printf("In Parent: Writing to pipe 1 Message is %s\n", pipe1writemessage);
+      printf("In Parent: Writing  to pipe 1 Message is %s\n", pipe1writemessage);
       write(pipefds1[1], pipe1writemessage, sizeof(pipe1writemessage));
       read(pipefds2[0], readmessage, sizeof(readmessage));
       printf("In Parent: Reading from pipe 2 Message is %s\n", readmessage);
